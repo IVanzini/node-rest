@@ -19,4 +19,14 @@ app.use("/api/users", usersRouter);
 //     res.json({ message: "Evviva" });
 // });
 
-app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
+// errore 404
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(404).send("Risorsa non trovata.");
+});
+
+// errore 500
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    res.status(500).send("Qualcosa è andato storto.");
+});
+
+app.listen(port, () => console.log(`Server is running on http://localhost:${port}`)); // se non metto l'hostname di default è localhost
